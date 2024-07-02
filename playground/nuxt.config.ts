@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@nuxtjs/apollo'],
+  modules: ['@nuxt/ui', '@rober9109/nuxt-apollo'],
 
   colorMode: {
     preference: 'dark',

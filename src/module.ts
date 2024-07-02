@@ -96,7 +96,7 @@ export default defineNuxtModule<ModuleOptions>({
     addTemplate({
       filename: 'apollo.d.ts',
       getContents: () => [
-        'import type { ClientConfig } from "@nuxtjs/apollo"',
+        'import type { ClientConfig } from "@rober9109/nuxt-apollo"',
         'declare module \'#apollo\' {',
         `  export type ApolloClientKeys = '${Object.keys(clients).join('\' | \'')}'`,
         '  export const NuxtApollo: {',

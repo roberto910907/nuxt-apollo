@@ -57,7 +57,7 @@
     "access": "public"
   },
   "resolutions": {
-    "@nuxtjs/apollo": "link:."
+    "@rober9109/nuxt-apollo": "link:."
   },
   "packageManager": "pnpm@8.15.2"
 }
