@@ -5,6 +5,7 @@ import { createApolloProvider } from '@vue/apollo-option'
 import { ApolloClients, provideApolloClients } from '@vue/apollo-composable'
 import { ApolloClient, ApolloLink, InMemoryCache, split } from '@apollo/client/core'
 import { createUploadLink } from 'apollo-upload-client';
+import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { setContext } from '@apollo/client/link/context'
 import type { ClientConfig, ErrorResponse } from '../types'
@@ -18,7 +19,8 @@ import type { ApolloClientKeys } from '#apollo'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const requestCookies = (process.server && NuxtApollo.proxyCookies && useRequestHeaders(['cookie'])) || undefined
-
+  
+  const removeTypenameLink = removeTypenameFromVariables();
   const clients = {} as Record<ApolloClientKeys, ApolloClient<any>>
 
   for (const [key, clientConfig] of Object.entries(NuxtApollo.clients) as [ApolloClientKeys, ClientConfig][]) {
@@ -100,7 +102,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const link = ApolloLink.from([
       errorLink,
       ...(!wsLink
-        ? [httpLink]
+        ? [removeTypenameLink, httpLink]
         : [
             ...(clientConfig?.websocketsOnly
               ? [wsLink]
